@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шапка с выпадающим меню (JS управление)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .menu > li {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .menu > li > label {
+            display: block;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .menu > li > label:hover {
+            background: #0056b3;
+        }
+
+        .submenu {
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            top: 100%;
+            left: 0;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            min-width: 200px;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease; /* Плавные переходы */
+        }
+        .submenu.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .submenu li {
+            position: relative;
+        }
+        .submenu li label {
+            display: block;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .submenu li label:hover {
+            background: #0056b3;
+        }
+        .submenu .submenu {
+            top: 0;
+            left: 100%;
+        }
+        .submenu .submenu li a {
+            display: block;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 5px;
+            text-decoration: none;
+        }
+        .submenu .submenu li a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="logo">Рыболовный магазин</div>
+    <nav>
+        <ul class="menu">
+            <li>
+                <label for="menu1">Каталог</label>
+                <ul class="submenu" id="menu1">
+                    <li>
+                        <label for="submenu1">Удилища</label>
+                        <ul class="submenu" id="submenu1">
+                            <li><a href="#">Кастинговые</a></li>
+                            <li><a href="#">Спиннинговые</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <label for="submenu2">Катушки</label>
+                        <ul class="submenu" id="submenu2">
+                            <li><a href="#">Безинерционные</a></li>
+                            <li><a href="#">Мультипликаторные</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <label for="submenu3">Приманки</label>
+                        <ul class="submenu" id="submenu3">
+                            <li><a href="#">Блесны</a></li>
+                            <li><a href="#">Воблеры</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label for="menu2">Сервис</label>
+                <ul class="submenu" id="menu2">
+                    <li>
+                        <label for="submenu4">Тюнинг</label>
+                        <ul class="submenu" id="submenu4">
+                            <li><a href="#">Тюнинг ящиков</a></li>
+                            <li><a href="#">Тюнинг катушек</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <label for="submenu5">Ремонт</label>
+                        <ul class="submenu" id="submenu5">
+                            <li><a href="#">Ремонт хлыстов</a></li>
+                            <li><a href="#">Ремонт катушек</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label for="menu3">Акции</label>
+                <ul class="submenu" id="menu3">
+                    <li>
+                        <label for="submenu6">Скидки</label>
+                        <ul class="submenu" id="submenu6">
+                            <li><a href="#">Сезонные скидки</a></li>
+                            <li><a href="#">Скидки для новых клиентов</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <label for="submenu7">Бонусы</label>
+                        <ul class="submenu" id="submenu7">
+                            <li><a href="#">Бонусные программы</a></li>
+                            <li><a href="#">Подарки</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <button>Связаться</button>
+</header>
+
+<script>
+    function toggleSubmenu(event) {
+        event.stopPropagation();
+        const label = event.currentTarget;
+        const submenu = label.nextElementSibling;
+
+        if (submenu && submenu.classList.contains("submenu")) {
+            submenu.classList.toggle("visible");
+
+            document.querySelectorAll(".submenu.visible").forEach((menu) => {
+                if (!submenu.contains(menu) && !menu.contains(submenu)) {
+                    menu.classList.remove("visible");
+                }
+            });
+        }
+    }
+
+    document.querySelectorAll(".menu label").forEach((label) => {
+        label.addEventListener("click", toggleSubmenu);
+    });
+
+    document.addEventListener("click", (event) => {
+        if (!event.target.closest(".menu")) {
+            document.querySelectorAll(".submenu.visible").forEach((menu) => {
+                menu.classList.remove("visible");
+            });
+        }
+    });
+</script>
+</body>
+</html>
