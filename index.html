@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шапка с выпадающим меню (с анимацией)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .menu > li {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .menu > li > label {
+            display: block;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .menu > li > label:hover {
+            background: #0056b3;
+        }
+
+        .submenu {
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            top: 100%;
+            left: 0;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            min-width: 200px;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease; /* Плавные переходы */
+        }
+
+        .submenu li {
+            position: relative;
+        }
+
+        .submenu li label {
+            display: block;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .submenu li label:hover {
+            background: #0056b3;
+        }
+
+        .submenu .submenu {
+            top: 0;
+            left: 100%;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        input[type="radio"]:checked + .submenu {
+            opacity: 1; /* Полностью видимое */
+            visibility: visible; /* Видимое */
+            transform: translateY(0); /* Без смещения */
+        }
+
+        .submenu .submenu li a {
+            display: block;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 5px;
+            margin: 5px;
+            text-decoration: none;
+        }
+        .submenu .submenu li a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="logo">Рыболовный магазин</div>
+    <nav>
+        <ul class="menu">
+            <li>
+                <label for="menu1">Каталог</label>
+                <input type="radio" name="menu" id="menu1">
+                <ul class="submenu">
+                    <li>
+                        <label for="submenu1">Удилища</label>
+                        <input type="radio" name="submenu" id="submenu1">
+                        <ul class="submenu">
+                            <li><a href="#">Кастинговые</a></li>
+                            <li><a href="#">Спиннинговые</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <label for="submenu2">Катушки</label>
+                        <input type="radio" name="submenu" id="submenu2">
+                        <ul class="submenu">
+                            <li><a href="#">Безинерционные</a></li>
+                            <li><a href="#">Мультипликаторные</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <label for="submenu3">Приманки</label>
+                        <input type="radio" name="submenu" id="submenu3">
+                        <ul class="submenu">
+                            <li><a href="#">Блесны</a></li>
+                            <li><a href="#">Воблеры</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label for="menu2">Сервис</label>
+                <input type="radio" name="menu" id="menu2">
+                <ul class="submenu">
+                    <li>
+                        <label for="submenu4">Тюнинг</label>
+                        <input type="radio" name="submenu" id="submenu4">
+                        <ul class="submenu">
+                            <li><a href="#">Тюнинг ящиков</a></li>
+                            <li><a href="#">Тюнинг катушек</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <label for="submenu5">Ремонт</label>
+                        <input type="radio" name="submenu" id="submenu5">
+                        <ul class="submenu">
+                            <li><a href="#">Ремонт хлыстов</a></li>
+                            <li><a href="#">Ремонт катушек</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <label for="menu3">Акции</label>
+                <input type="radio" name="menu" id="menu3">
+                <ul class="submenu">
+                    <li>
+                        <label for="submenu6">Скидки</label>
+                        <input type="radio" name="submenu" id="submenu6">
+                        <ul class="submenu">
+                            <li><a href="#">Сезонные скидки</a></li>
+                            <li><a href="#">Скидки для новых клиентов</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <label for="submenu7">Бонусы</label>
+                        <input type="radio" name="submenu" id="submenu7">
+                        <ul class="submenu">
+                            <li><a href="#">Бонусные программы</a></li>
+                            <li><a href="#">Подарки</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <button>Связаться</button>
+</header>
+</body>
+</html>
